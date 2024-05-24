@@ -1,0 +1,144 @@
+
+    body{
+        background-image: url('./5492382.jpg');
+        background-repeat:no-repeat ;
+    }
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+:root{
+  --black-color:#fff;
+}
+
+.wrapper {
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  height:100vh;
+  width:100%;
+  background-size:cover;
+  background-position:center;
+  
+}
+.login-box {
+  position: relative;
+  min-width: 340px;
+  height: 450px;
+  background: transparent;
+  border-radius: 15px;
+  border: 2px solid rgba(98, 0, 143, 0.89);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+h2 {
+  font-size:2em;
+  color:var(--black-color);
+  text-align:center;
+}
+.input-box {
+  position:relative;
+  width:310px;
+  margin:30px 0;
+  border-bottom:1px solid var(--black-color);
+}
+.input-box label {
+  position:absolute;
+  top:50%;
+  left:5px;
+  transform:translateY(-50%);
+  font-size:1em;
+  color:var(--black-color);
+  pointer-events:none;
+  transition:.5s;
+}
+.input-box input:focus  ~ label,
+.input-box input:valid  ~ label {
+  top:-5px;
+}
+.input-box input {
+  width:100%;
+  height:50px;
+  background:transparent;
+  border:none;
+  outline:none;
+  font-size:1em;
+  color:var(--black-color);
+  padding:0 35px 0 5px;
+}
+
+.remember-forgot {
+  margin:-15px 0 15px;
+  font-size:.9em;
+  color:var(--black-color);
+  display:flex;
+  justify-content:space-between;
+}
+.remember-forgot label input {
+  margin-right:3px;
+}
+.remember-forgot a {
+  color:var(--black-color);
+  text-decoration:none;
+}
+.remember-forgot a:hover {
+  text-decoration:underline;
+}
+button {
+  width:100%;
+  height:40px;
+  background-color:#099e16;
+  border-radius:40px;
+  cursor:pointer;
+  font-size:1em;
+  color:#ffffff;
+  font-weight:500;
+  border: none;
+}
+button:hover{
+ background-color: #06550c;   
+}
+.register-link {
+  font-size:.9em;
+  color:var(--black-color);
+  text-align:center;
+  margin:25px 0 10px;
+}
+.register-link p a {
+  color:var(--black-color);
+  text-decoration:none;
+  font-weight:600;
+}
+.register-link p a:hover {
+  text-decoration:underline;
+}
+.googlelogin{
+  color: rgb(89, 60, 167);
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+.googlelogin:hover{
+  text-decoration-line: none;
+}
+
+
+@media (max-width:500px) {
+  .login-box {
+    width:fit-content;
+    height:80vh;
+  }
+  .input-box {
+    width:290px;
+  }
+  .topic{
+    width: auto;
+  }
+}

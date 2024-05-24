@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERAMEDIA</title>
+    <!-- link of bootstrap -->
+    <!-- link of bootstrap -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/tlogo.jpg' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <script src="https://kit.fontawesome.com/40f32833f4.js" crossorigin="anonymous"></script>
+
+    <style>
+        .mobilenavtopic{
+           display: none;
+        }
+        .topicxl{
+        display: block;
+      }
+      .iconkit{
+        font-size: 14px;
+      }
+      .busdetail{
+        background-color: bisque;
+        margin: 10px;
+        width: 430px;
+        height: 160px;
+      }
+      .servimg{
+        width: 80%;
+        height: 80%;
+        border-radius: 5px;
+        border: 2px solid white;
+      }
+      .bottomnav{
+        display: none;
+      }
+      .cmyname{
+        font-size: 20px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: 700;
+      }
+    
+        @media (max-width:500px) {
+      .topicxl{
+        display: none;
+      }
+      .mobilenavtopic{
+           display: block;
+           font-family: serif;
+        }
+        .servimg{
+        width: 80%;
+        height: 80%;
+      }
+      .busdetailfont{
+        font-size: 15px;
+    }
+    .createtop{
+        display: none;
+    }
+    .bottomnav{
+        display: block;
+      }
+      .busdetail{
+        background-color: bisque;
+        margin: 10px;
+        width: 310px;
+      }
+      .mobilefnt{
+        font-size: 13px;
+      }
+      .cmyname{
+        font-size: 20px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: 700;
+      }
+        }
+    
+    
+        
+    </style>
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light navbarown">
+            <div class="container-fluid topic">
+              <a class="topicxl">
+                <span class="logo1">TERA</span>
+                <span class="logo2">MEDIA</span>
+              </a>
+              <!-- <a class="mobilenavtopic">
+                <span class="logo1">T</span>
+                <span class="logo2">M</span>
+              </a> -->
+              <a href="">
+                <!-- <img src="person.jpg" width="20px" height="25px" style="border-radius: 100px;" alt=""> -->
+                <!-- <i class="fa-solid fa-user"></i> -->
+                {% if request.user.is_authenticated %}
+                <span class="logo2"><i class="fa-solid fa-user"></i> &nbsp; {{ user.username }}</span></a>
+                <a class="btn btn-info loginown" type="submit" href="{% url 'alldatas' %}">VIEW ALL</a>
+
+              <a class="btn btn-outline-success loginown" type="submit" href="{% url 'logout_page' %}">LOGOUT</a>
+              {% else %}
+              <a class="btn btn-outline-success loginown" type="submit" href="{% url 'index' %}">HOME</a>
+              {% endif %}
+            </div> </nav> 
+    <div style="height: 45px;"></div>
+    <p></p>
+    {% if request.user.is_authenticated %}
+
+<br>
+    <div class="container-fluid createtop" style="justify-content: center;"v> <div class="justify-content-center" style="text-align: center;"><a href="{% url 'createpost' %}" class="btn btn-success"><i class="fa-regular fa-square-plus"></i> &nbsp;create</a></div>
+    </div>
+   <br>
+    <div class="container-fluid">
+        <div class="row">
+    
+    <!-- demo piece -->
+    
+    {% block content %}
+
+
+    {% for item in userpost %}
+    <div class="d-flex col-sm-6 justify-content-center my-3 mobilefnt" style="padding: 0;">
+      <div class="d-flex " style="width: 95%;border-radius: 5px;padding: 0;box-shadow: rgba(17, 17, 26, 0.301) 0px 0px 16px;">
+          
+        
+        <div style="width: 25%; text-align: center;display: flex;justify-content: center;align-items: center;max-height: 160px;"  >
+          {% if item.image.url %}
+          <img src="{{ item.image.url }}" class="servimg" alt="...">
+          {% else %}
+          <img src="{% static 'images/tlogo.jpg' %}" class="servimg" alt="...">
+          {% endif %}           </div>
+           <div style="width: 75%;">
+               
+            <span style="margin-left: 50%;font-family: Arial, Helvetica, sans-serif;color: grey;font-size: 10px;">
+              Published by :  <span style="color: green;">{{ item.username_post }}*</span></span>            
+             <br>
+             
+              <a href="fulldetails/{{ item.id }}" class="cmyname" style="font-family: 'Times New Roman', Times, serif;text-decoration: none;color: black;">{{ item.company_name }}</a> <br>
+              <span >Owned By : &nbsp;{{ item.owner_name }}</span> <br>
+              <!-- <span>Located in : &nbsp;{{ item.street_address }}</span> <br> -->
+              <span>Category : &nbsp;{{ item.category }}</span> <br>
+              <span>District : &nbsp;{{ item.city }} - {{ item.street_address }} - {{ item.town_address }}</span>
+              <br><span>Posted at :{{ item.created_at }}</span> <br><br>
+               
+
+           </div>
+      </div>
+</div>
+{% empty %}
+<div class="container-fluid" style="text-align: center;">
+    <h3>No Record Found</h3>
+  </div>
+{% endfor %}
+
+
+
+    
+
+   
+{% endblock %}
+
+    </div>
+    </div>
+
+
+    <div style="height: 55px;"></div>
+    <p></p>
+
+    <!-- bottom nav -->
+    
+    <div class="container-fluid bottomnav" style="height: 40px;background-color:#3d125c; position: fixed;bottom: 0;text-align: center;">
+         <a href="{% url 'createpost' %}" class="btn btn-success" style="position: fixed;bottom: 15px;right: 43%;border-radius: 30px;font-size: 24px;border:4px solid rgb(231, 231, 231);outline:4px solid white;">
+            <i class="fa-solid fa-plus"></i>
+         </a>
+    </div>
+
+
+    {% else %}
+
+<div class="mx-5 justify-content-center" style="background-color: white;text-align: center;width:auto;">
+   <img src="{% static 'images/wentwrong.svg' %}" class="wentwrong" alt="">
+  <h4 style="text-align: center;"> LOGIN MUST REQUIRED !!!!!</h4>
+  <a class="logo2 text-center" style="color: #501779;text-decoration: underline;" href="{% url 'index' %}">GO TO HOME</a>
+
+</div>
+
+
+{% endif %}
+    
+    
+     <!-- script for bootstrap -->
+     <!-- <script src="jquery.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+     <script src="bootstrap.min.js"></script> -->
+    
+    </body>
+    </html>

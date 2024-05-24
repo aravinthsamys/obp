@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERAMEDIA</title>
+    <!-- link of bootstrap -->
+    <!-- link of bootstrap -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/tlogo.jpg' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <script src="https://kit.fontawesome.com/40f32833f4.js" crossorigin="anonymous"></script>
+
+    <style>
+        .mobilenavtopic{
+           display: none;
+        }
+        .topicxl{
+        display: block;
+      }
+      .iconkit{
+        font-size: 14px;
+      }
+      .busdetail{
+        background-color: bisque;
+        margin: 10px;
+        width: 430px;
+        height: 160px;
+      }
+      .servimg{
+        width: 90%;
+        height:80%;
+        border-radius: 5px;
+        border: 2px solid white;
+      }
+      .bottomnav{
+        display: none;
+      }
+      .cmyname{
+        font-size: 20px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: 700;
+      }
+ 
+        @media (max-width:500px) {
+      .topicxl{
+        display: none;
+      }
+      .mobilenavtopic{
+           display: block;
+           font-family: serif;
+        }
+        .servimg{
+        width: 90%;
+        height: 80%;
+      }
+      .busdetailfont{
+        font-size: 15px;
+    }
+    .createtop{
+        display: block;
+    }
+    .bottomnav{
+        display: block;
+      }
+      .busdetail{
+        background-color: bisque;
+        margin: 10px;
+        width: 310px;
+      }
+      .mobilefnt{
+        font-size: 13px;
+      }
+      .cmyname{
+        font-size: 20px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: 700;
+      }
+        }
+    
+    
+        
+    </style>
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light navbarown">
+            <div class="container-fluid topic">
+              <a class="topicxl">
+                <span class="logo1">TERA</span>
+                <span class="logo2">MEDIA</span>
+              </a>
+              <!-- <a class="mobilenavtopic">
+                <span class="logo1">T</span>
+                <span class="logo2">M</span>
+              </a> -->
+              <a href="">
+                <!-- <img src="person.jpg" width="20px" height="25px" style="border-radius: 100px;" alt=""> -->
+                <!-- <i class="fa-solid fa-user"></i> -->
+                {% if request.user.is_authenticated %}
+                <span class="logo2"><i class="fa-solid fa-user"></i> &nbsp; {{ user.username }}</span></a>
+                <a class="btn btn-info loginown" type="submit" href="{% url 'profile' %}">MY POSTS</a>
+              <a class="btn btn-outline-success loginown" type="submit" href="{% url 'logout_page' %}">LOGOUT</a>
+              {% else %}
+              <a class="btn btn-outline-success loginown" type="submit" href="{% url 'index' %}">HOME</a>
+              {% endif %}
+            </div> </nav> 
+    <div style="height: 80px;"></div>
+    <p></p>
+    {% if request.user.is_authenticated %}
+
+
+    <div class="container-fluid createtop" style="justify-content: center;position: fixed;z-index: 10;top: 45px;">
+       <div class="justify-content-center" style="text-align: center;background-color: white;padding-bottom: 20px;padding-top: 10px;width: 100%;">
+        <form action="" method="post"> {% csrf_token %}
+          <a class="btn btn-warning" href=""><i class="fa-solid fa-arrows-rotate"></i></a>
+          <input name="searched" type="search" oninput="validateInput(event)" maxlength="6" placeholder="search by Pincode"  style="width: 190px;">
+      
+
+<button type="submit" class="btn btn-info">search</button>
+        </form>
+    
+    </div>
+    </div>
+ <br> 
+    
+    <div class="container-fluid">
+        <div class="row">
+          {% block content %}
+        
+<!-- {% if Businessdata %} -->
+<!-- <h5> Searched Pincode is {{ searchedcity1 }}</h5> -->
+<!-- {% endif %} -->
+
+    <!-- demo piece -->
+    
+
+
+    {% for item in Businessdata %}
+    <div class="d-flex col-sm-6 justify-content-center my-2 mobilefnt" style="padding: 0;background-color:white;">
+      <div class="d-flex " style="width: 95%;border-radius: 5px;padding: 0;box-shadow: rgba(251, 251, 255, 0.301) 0px 0px 16px;">
+          
+        
+        <div style="width: 25%; text-align: center;display: flex;justify-content: center;align-items: center;max-height: 160px;" >
+          {% if item.image.url %}
+          <img src="{{ item.image.url }}" class="servimg" alt="...">
+          {% else %}
+          <img src="{% static 'images/tlogo.jpg' %}" class="servimg" alt="...">
+          {% endif %}
+               </div>
+       <div style="width: 75%;">
+           
+        <span style="margin-left: 50%;font-family: Arial, Helvetica, sans-serif;color: grey;font-size: 10px;">
+          Published by :  <span style="color: green;">{{ item.username_post }}*</span></span>            
+         <br>
+         
+          <a href="fulluserdata/{{ item.id }}" class="cmyname" style="font-family: 'Times New Roman', Times, serif;text-decoration: none;color: black;">{{ item.company_name }}</a> <br>
+          <span >Owned By : &nbsp;{{ item.owner_name }}</span> <br>
+          <!-- <span>Located in : &nbsp;{{ item.street_address }}</span> <br> -->
+          <span>Category : &nbsp;{{ item.category }}</span> <br>
+          <span>District : &nbsp;{{ item.city }} - {{ item.street_address }} - {{ item.town_address }}</span>
+          <br><span>Posted at :{{ item.created_at }}</span> <br><br>
+           
+               
+
+           </div>
+      </div>
+
+      
+    </div>
+    {% empty %}
+    <img src="{% static 'images/tlogo.jpg' %}" class="servimg" alt="...">
+          
+{% endfor %}
+   
+{% endblock %}
+
+  </div>
+</div>
+
+
+    <div style="height: 55px;"></div>
+    <p></p>
+
+    <!-- bottom nav -->
+    
+    <!-- <div class="container-fluid bottomnav" style="height: 40px;background-color:#3d125c; position: fixed;bottom: 0;text-align: center;">
+         <a href="{% url 'createpost' %}" class="btn btn-success" style="position: fixed;bottom: 15px;right: 43%;border-radius: 30px;font-size: 24px;border:4px solid rgb(231, 231, 231);outline:4px solid white;">
+            <i class="fa-solid fa-plus"></i>
+         </a>
+    </div> -->
+
+
+    {% else %}
+
+<div class="mx-5 justify-content-center" style="background-color: white;text-align: center;width:auto;">
+   <img src="{% static 'images/wentwrong.svg' %}" class="wentwrong" alt="">
+  <h4 style="text-align: center;"> LOGIN MUST REQUIRED !!!!!</h4>
+  <a class="logo2 text-center" style="color: #501779;text-decoration: underline;" href="{% url 'index' %}">GO TO HOME</a>
+
+</div>
+
+
+{% endif %}
+    <script>
+
+function validateInput(event) {
+            const input = event.target;
+            const value = input.value;
+            
+            // Remove non-numeric characters
+            const sanitizedValue = value.replace(/\D/g, '');
+
+            // Trim the value to the first 6 characters
+            const trimmedValue = sanitizedValue.substring(0, 6);
+            
+            // Update the input value
+            input.value = trimmedValue;
+        }
+
+    </script>
+    
+     <!-- script for bootstrap -->
+     <!-- <script src="jquery.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+     <script src="bootstrap.min.js"></script> -->
+    
+    </body>
+    </html>

@@ -1,0 +1,87 @@
+/* navbar */
+
+.navbarown{
+    background-color:#3d125c;
+}
+.logo1{
+    font-weight: bold;
+    color: yellow;
+    font-size: 18px;
+}
+.logo2{
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
+}
+#navbarNav{
+    font-weight: 500;
+    text-align: center;
+}
+.logindiv{
+    margin-left: 6%;
+}
+.loginown{
+    margin-left: 4px;
+}
+
+/* carousel */
+
+.carousel-item img{
+    object-fit: cover;
+    object-position: top;
+    height: 555px;
+    
+}
+.carousel-indicators button{
+    border: white;
+    margin-right: 6px;
+    padding-left: 20px;
+    padding-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+.carousel-indicators button:hover{
+    background-color: rgb(255, 255, 255);
+}
+/* *{
+    font-family: sans-seri;
+} */
+.serimg{
+    width: 85%;
+    height: 100%;
+    border-radius: 40%;
+
+}
+
+.menubr{
+    color: white;
+  }
+
+@media only screen and (max-width:600px) {
+    .loginown{
+        font-size: 10px;
+        font-weight: 700;
+        margin-left: 1px;
+    }
+    .logindiv{
+        margin-left: 3%;
+    }
+    /* footer */
+
+.footown{
+    font-size: 10px;
+    height: 170px
+    
+}
+  }
+
+
+  @media only screen and (min-width:1200px) {
+    .aboutimg{
+  margin-left: 90px;}
+  .footown{
+   
+    height: 300px
+    
+}
+}

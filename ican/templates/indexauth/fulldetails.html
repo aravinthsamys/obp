@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> {% load static %}  {% load social_share %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERAMEDIA</title>
+    <!-- link of bootstrap -->
+    <!-- link of bootstrap -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/tlogo.jpg' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <script src="https://kit.fontawesome.com/40f32833f4.js" crossorigin="anonymous"></script>
+
+    <style>
+        .mobilenavtopic{
+           display: none;
+        }
+        .topicxl{
+        display: block;
+      }
+      .iconkit{
+        font-size: 14px;
+      }
+      .busdetail{
+        background-color: bisque;
+        margin: 10px;
+        width: 430px;
+        height: 160px;
+      }
+      .servimg{
+        width: 80%;
+        height: 80%;
+        border-radius: 5px;
+        border: 2px solid white;
+      }
+      .bottomnav{
+        display: none;
+      }
+      .cmyname{
+        font-size: 20px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: 700;
+      }
+      .mobilecard{
+        display: none;
+      }
+    
+        @media (max-width:500px) {
+      .topicxl{
+        display: none;
+      }
+      .mobilenavtopic{
+           display: block;
+           font-family: serif;
+        }
+        .servimg{
+        width: 80%;
+        height: 80%;
+      }
+      .busdetailfont{
+        font-size: 15px;
+    }
+    .createtop{
+        display: none;
+    }
+    .bottomnav{
+        display: block;
+      }
+      .busdetail{
+        background-color: bisque;
+        margin: 10px;
+        width: 310px;
+      }
+      .mobilefnt{
+        font-size: 13px;
+      }
+      .cmyname{
+        font-size: 20px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: 700;
+      }
+      .desktopcard{
+        display:none;
+      }
+      .mobilecard{
+        display: block;
+      }
+        }
+    
+    
+        
+    </style>
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light navbarown">
+            <div class="container-fluid topic">
+              <a class="topicxl">
+                <span class="logo1">TERA</span>
+                <span class="logo2">MEDIA</span>
+              </a>
+              <a class="mobilenavtopic">
+                <span class="logo1">T</span>
+                <span class="logo2">M</span>
+              </a>
+              <a href="">
+                <!-- <img src="person.jpg" width="20px" height="25px" style="border-radius: 100px;" alt=""> -->
+                <!-- <i class="fa-solid fa-user"></i> -->
+                {% if request.user.is_authenticated %}
+                <span class="logo2"><i class="fa-solid fa-user"></i> &nbsp; {{ user.username }}</span></a>
+                <a class="btn btn-info loginown" type="submit" href="{% url 'profile' %}">BACK</a>
+
+              <a class="btn btn-outline-success loginown" type="submit" href="{% url 'logout_page' %}">LOGOUT</a>
+              {% else %}
+              <a class="btn btn-outline-success loginown" type="submit" href="{% url 'index' %}">HOME</a>
+              {% endif %}
+            </div> </nav> 
+    <div style="height: 45px;"></div>
+    <p></p>
+
+
+    <!-- <div class="container-fluid createtop" style="justify-content: center;"v> <div class="justify-content-center" style="text-align: center;"><a href="{% url 'createpost' %}" class="btn btn-success"><i class="fa-regular fa-square-plus"></i> &nbsp;create</a></div>
+    </div> -->
+    
+    <div class="container-fluid " >
+        <div class="row" >
+    
+    <!-- demo piece -->
+      
+
+<div class="card m-auto mobilecard" style="width: 20rem;">
+  {% if data2.image.url %}
+  <img src="{{ data2.image.url }}" class="card-img-top" alt="..." width="100%" height="100%">
+  {% else %}
+  <img src="{% static 'images/tlogo.jpg' %}" class="card-img-top" alt="..." width="100%" height="100%">
+  {% endif %} 
+    <div class="card-body">
+    <h5 class="card-title" style="font-weight: 700;">{{ data2.company_name }}</h5>
+    <p class="card-text">{{ data2.description }}</p>
+    <span style="font-size: 15px;">GSTIN : - {{ data2.gstin_number }}</span>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item" ><i class="fa-regular fa-user"></i> &nbsp;{{ data2.owner_name }}</li>
+    <li class="list-group-item"><i class="fa-regular fa-address-book"></i> &nbsp;{{ data2.contact_number }}</li>
+    <li class="list-group-item"><i class="fa-regular fa-envelope"></i> &nbsp;{{ data2.email_id }}-</li>
+    <li class="list-group-item"><i class="fa-solid fa-link"></i> &nbsp;<a href="https://{{ data2.website_link }}">{{ data2.website_link }}</a>-</li>
+
+    <li class="list-group-item"><i class="fa-solid fa-list"></i> &nbsp;{{ data2.category }}</li>
+    <li class="list-group-item"> <i class="fa-regular fa-clock"></i> &nbsp;{{ data2.business_work_type }}</li>
+    <li class="list-group-item"><i class="fa-solid fa-location-crosshairs"></i> &nbsp;{{ data2.street_address }} -
+    {{ data2.town_address }}</li>
+    <li class="list-group-item"><i class="fa-solid fa-location-dot"></i> &nbsp;{{ data2.city }} - {{ data2.pincode }}</li>
+  </ul>
+  <div class="card-body navbar"> <p></p>
+    <a href="tel:{{ data2.contact_number }}" class="card-link"><i style='font-size: 25px;' class="fa-solid fa-phone"></i></a> <p></p>
+    <a href="{{ data2.gmaps_link }}" class="card-link"><i style='font-size: 25px;' class="fa-solid fa-diamond-turn-right"></i></a> <p></p>
+    {% load social_share %}{% post_to_whatsapp object_or_url  "<p style='font-size: 13px;'> Whatsapp</p>" %}
+
+  </div>
+</div>
+
+<div class="card mb-3 m-auto desktopcard" style="max-width: 90%;">
+  <div class="row no-gutters" width="50%" >
+    <div class="col-md-3  mx-3 "  style="text-align: center;display: flex;justify-content: center;align-items: center;">
+      {% if data2.image.url %}
+      <img src="{{ data2.image.url }}" class="card-img-top" width="100%" height="100%" alt="...">
+      {% else %}
+      <img src="{% static 'images/tlogo.jpg' %}" class="card-img-top" alt="..." width="100%" height="100%">
+      {% endif %}     </div>
+    <div class="col-md-8" width="50%">
+      <div class="card-body">
+        <h5 class="card-title" style="font-weight: 700;">{{ data2.company_name }}</h5>
+        <p class="card-text">{{ data2.description }} </p>
+        <span style="font-size: 15px;">GSTIN : - {{ data2.gstin_number }}</span>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" ><i class="fa-regular fa-user"></i> &nbsp;{{ data2.owner_name }}</li>
+        <li class="list-group-item"><i class="fa-regular fa-address-book"></i> &nbsp;{{ data2.contact_number }}</li>
+        <li class="list-group-item"><i class="fa-regular fa-envelope"></i> &nbsp;{{ data2.email_id }}-</li>
+        <li class="list-group-item"><i class="fa-solid fa-link"></i> &nbsp;<a target="_blank" href="https://{{ data2.website_link }}">{{ data2.website_link }}</a>-</li>
+
+        <li class="list-group-item"><i class="fa-solid fa-list"></i> &nbsp;{{ data2.category }}</li>
+        <li class="list-group-item"> <i class="fa-regular fa-clock"></i> &nbsp;{{ data2.business_work_type }}</li>
+        <li class="list-group-item"><i class="fa-solid fa-location-crosshairs"></i> &nbsp;{{ data2.street_address }} -
+        {{ data2.town_address }}</li>
+        <li class="list-group-item"><i class="fa-solid fa-location-dot"></i> &nbsp;{{ data2.city }} - {{ data2.pincode }}</li>
+      </ul> <hr>
+      <div class="card-body navbar"> <p></p>
+        <a href="tel:{{ data2.contact_number }}" class="card-link"><i style='font-size: 25px;' class="fa-solid fa-phone"></i></a> <p></p>
+        <a href="{{ data2.gmaps_link }}" class="card-link"><i style='font-size: 25px;' class="fa-solid fa-diamond-turn-right"></i></a> <p></p>
+      {% load social_share %}{% post_to_whatsapp object_or_url  "<p style='font-size: 20px;'>Share on Whatsapp</p>" %}
+
+      </div>
+    </div>
+  </div>
+</div>
+   
+
+   
+
+
+    </div>
+    </div>
+
+
+    <div style="height: 55px;"></div>
+    <p></p>
+
+  
+
+
+
+    </body>
+    </html>
